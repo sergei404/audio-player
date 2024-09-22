@@ -3,34 +3,35 @@ let index = 0
 
 const music = new Audio(`./music/${musicList[index]}.mp3`)
 
-const playBtn = document.querySelector(".play");
-const currentTime = document.querySelector(".current-time");
-const duration = document.querySelector(".duration-time");
+const playBtn = document.querySelector(".player__pause");
+const currentTime = document.querySelector(".player__current-time");
+const duration = document.querySelector(".player__duration-time");
 const progress = document.getElementById("progress");
 const progressContainer = document.getElementById("progress-container");
-const next = document.querySelector(".next");
-const prev = document.querySelector(".prev");
-const speed = document.querySelector(".speed");
-const title = document.querySelector('.title')
-const titleDesktop = document.querySelector('.title-desktop')
-const info = document.querySelector('.info')
-const volumeBtn = document.querySelector(".volume");
-const volumeNoneBtn = document.querySelector(".volume-none");
-const volumeRange = document.querySelector(".volume-range");
+const next = document.querySelector(".player__next");
+const prev = document.querySelector(".player__prev");
+const speed = document.querySelector(".player__speed");
+const title = document.querySelector('.player__title')
+const info = document.querySelector('.player__info')
+const volumeBtn = document.querySelector(".player__volume");
+const volumeNoneBtn = document.querySelector(".player__volume-none");
+const volumeRange = document.querySelector(".player__volume-range");
+
 
 function setTitle(index) {
-  title.textContent = musicList[getIndex()][0].toUpperCase() + musicList[index].slice(1)
-  titleDesktop.textContent = musicList[getIndex()][0].toUpperCase() + musicList[index].slice(1)
+  title.textContent = musicList[index].toUpperCase()
 }
 
 setTitle(index)
 
-function getIndex() {
-  return musicList.findIndex(el => music.src.includes(el))
-}
+// function getIndex() {
+//   console.log(musicList.findIndex(el => music.src.includes(el)));
+  
+//   return musicList.findIndex(el => music.src.includes(el))
+// }
 
 next.addEventListener('click', () => {
-  index = getIndex()
+  //index = getIndex()
   if (index < musicList.length - 1) {
     index++
   } 
@@ -39,11 +40,11 @@ next.addEventListener('click', () => {
   }
   music.src = `./music/${musicList[index]}.mp3`
   setTitle(index)
-  musucPlay();
+  musicPlay();
 });
 
 prev.addEventListener('click', () => {
-  index = getIndex()
+  //index = getIndex()
   if (index > 0) {
     index--
   } 
@@ -52,33 +53,32 @@ prev.addEventListener('click', () => {
   }
   music.src = `./music/${musicList[index]}.mp3`
   setTitle(index)
-  musucPlay();
+  musicPlay();
 });
 
-function musucPlay() {
+function musicPlay() {
   music.play();
-  playBtn.classList.add("pause");
-  playBtn.classList.remove("play");
+  playBtn.classList.add("player__play");
+  playBtn.classList.remove("player__pause");
 }
 
-function musucPause() {
+function musicPause() {
   music.pause();
-    playBtn.classList.add("play");
-    playBtn.classList.remove("pause");
+    playBtn.classList.add("player__pause");
+    playBtn.classList.remove("player__play");
 }
 
 function handlePlay() {
   if (music.paused) {
-    musucPlay()
+    musicPlay()
   } else {
-    musucPause()
+    musicPause()
   }
 }
 
-let ds, dm;
 music.onloadeddata = function () {
-  ds = parseInt(music.duration % 60);
-  dm = parseInt((music.duration / 60) % 60);
+  let ds = parseInt(music.duration % 60);
+  let dm = parseInt((music.duration / 60) % 60);
   duration.textContent = dm.toString().padStart(2, "0") + ":" + ds;
 };
 
@@ -109,6 +109,7 @@ function setProgress(evt) {
 music.addEventListener("timeupdate", updateProgress);
 
 progressContainer.addEventListener("click", setProgress);
+
 playBtn.addEventListener("click", () => {
   handlePlay();
 });
@@ -127,17 +128,17 @@ function vol() {
 
 volumeNoneBtn.addEventListener("click", vol);
 
-info.addEventListener('click', setShowTultip)
+info.addEventListener('click', setShowTooltip)
 
-function setShowTultip(evt) {
+function setShowTooltip(evt) {
   evt.stopPropagation();
-  info.querySelector('.info-tultip').classList.toggle('active')
+  info.querySelector('.info-tooltip').classList.toggle('active')
 }
 
 speed.addEventListener('click', setSpeedValue)
 
 function setSpeedValue(evt) {
-  const speedList = [1, 1.5, 2]
+  const speedList = [0.2,0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2]
   let speedIndexValue
   if (speedList.findIndex(el => el === parseFloat(evt.target.textContent)) + 1 < speedList.length) {
     speedIndexValue = speedList.findIndex(el => el === parseFloat(evt.target.textContent)) + 1
@@ -148,7 +149,7 @@ function setSpeedValue(evt) {
   music.playbackRate = speedList[speedIndexValue]
 }
 
-document.querySelector('.replay').addEventListener('click', () => {
+document.querySelector('.player__replay').addEventListener('click', () => {
   if (music.currentTime > 0) {
     music.currentTime -= 10
   } else {
@@ -156,7 +157,7 @@ document.querySelector('.replay').addEventListener('click', () => {
   }
 })
 
-document.querySelector('.forward').addEventListener('click', () => {
+document.querySelector('.player__forward').addEventListener('click', () => {
   if (music.currentTime < music.duration) {
     music.currentTime += 10
   } else {
@@ -171,8 +172,8 @@ function handleVolumeChange() {
 }
 
 document.addEventListener('click', (evt) => {
-  if(info.querySelector('.info-tultip').classList.contains('active')) {
-    info.querySelector('.info-tultip').classList.remove('active')
+  if(info.querySelector('.player__info-tooltip').classList.contains('active')) {
+    info.querySelector('.player__info-tooltip').classList.remove('active')
   }
 })
 
@@ -180,15 +181,14 @@ music.addEventListener('ended', nextSong)
 
 function nextSong() {
   index++;
-
+  console.log(index);
+  
   if (index > musicList.length - 1) {
     index = 0;
   }
-
-  music.src = `./music/${musicList[index]}.mp3`
   setTitle(index)
 
-  musucPlay();
+  musicPlay();
 }
 
 

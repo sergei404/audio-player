@@ -120,29 +120,29 @@ body {
   margin-bottom: 20px;
 }
 
-.play-show,
-.pause-show {
+.player__play-show,
+.player__pause-show {
   display: none;
   width: 44px;
   height: 44px;
 }
 
-.play .play-show {
-  display: inline;
+.player__play .player__play-show {
+  display: block
 }
 
-.pause .pause-show {
-  display: inline;
+.player__pause .player__pause-show {
+  display: block;
 }
 
-.pause,
-.play {
+.player__pause,
+.player__play {
   cursor: pointer;
   margin: 0 17px;
 }
 
-.replay,
-.forward {
+.player__replay,
+.player__forward {
   cursor: pointer;
 }
 
