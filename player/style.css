@@ -6,6 +6,7 @@
 
 html,
 body {
+  position: relative;
   padding: 0;
   margin: 0;
   position: relative;
@@ -16,6 +17,7 @@ body {
   width: 100%;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-image: url("https://plus.unsplash.com/premium_photo-1664457233806-e1477e52e2ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxOXx8fGVufDB8fHx8fA%3D%3D");
@@ -41,7 +43,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 32px 40px;
+  padding: 22px 40px;
   background: rgba(23, 50, 25, 0.9);
   border-radius: 15px;
   z-index: 2;
@@ -59,12 +61,20 @@ body {
   object-fit: cover;
 }
 
-.title {
+.player__title h2 {
   text-align: center;
   font-size: 16px;
   line-height: 20px;
   color: aquamarine;
   margin-bottom: 16px;
+}
+.player__title p {
+  text-align: center;
+  font-size: 16px;
+  line-height: 20px;
+  color: aquamarine;
+  margin-bottom: 16px;
+  text-transform: lowercase;
 }
 
 .player__progress-container {
@@ -262,4 +272,55 @@ input[type="range"]::-ms-thumb {
 
 .player__info-tooltip.active {
   display: block;
+}
+
+.footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 15px;
+  background-color: #36b188;
+}
+
+.footer span {
+  font-size: 1.5rem;
+  color: aquamarine;
+}
+
+.link-git {
+  display: flex;
+  align-items: center;
+  font-weight: 1.5rem;
+  font-weight: 600;
+  color: aquamarine;
+  transition: opacity 0.4s;
+}
+
+.link-git:hover {
+  opacity: 0.5;
+}
+
+.link-git::before {
+  width: 34px;
+  height: 34px;
+  content: "";
+  display: block;
+  background-image: url("./github-seeklogo.com.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.logo {
+  width: 100px;
+}
+
+.logo a {
+  transition: opacity 0.4s;
+}
+
+.logo a:hover {
+  opacity: 0.5;
 }

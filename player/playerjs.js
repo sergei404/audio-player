@@ -1,17 +1,22 @@
 const musicList = ['hey', 'sum mer', 'ukulele']
+const authorList = ['unknown', 'unknown', 'folk']
+const images = ['https://plus.unsplash.com/premium_photo-1664457233806-e1477e52e2ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxOXx8fGVufDB8fHx8fA%3D%3D', 'https://images.unsplash.com/photo-1726859134607-bc9f46492fc2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8', 'https://images.unsplash.com/photo-1726487536376-846cd82fbd78?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw2M3x8fGVufDB8fHx8fA%3D%3D']
 let index = 0
 
 const music = new Audio(`./music/${musicList[index]}.mp3`)
 
+const player = document.querySelector(".player");
 const playBtn = document.querySelector(".player__pause");
 const currentTime = document.querySelector(".player__current-time");
 const duration = document.querySelector(".player__duration-time");
 const progress = document.getElementById("progress");
 const progressContainer = document.getElementById("progress-container");
+const image = document.getElementById("image");
 const next = document.querySelector(".player__next");
 const prev = document.querySelector(".player__prev");
 const speed = document.querySelector(".player__speed");
-const title = document.querySelector('.player__title')
+const title = document.querySelector('.player__title h2')
+const author = document.querySelector('.player__title p')
 const info = document.querySelector('.player__info')
 const volumeBtn = document.querySelector(".player__volume");
 const volumeNoneBtn = document.querySelector(".player__volume-none");
@@ -20,6 +25,9 @@ const volumeRange = document.querySelector(".player__volume-range");
 
 function setTitle(index) {
   title.textContent = musicList[index].toUpperCase()
+  author.textContent = authorList[index].toUpperCase()
+  image.src = images[index]
+  player.style.backgroundImage = `url(${images[index]})`
 }
 
 setTitle(index)
